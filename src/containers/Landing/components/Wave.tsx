@@ -15,6 +15,7 @@ import { ReactComponent as WaveBottom } from 'assets/img/waves/wave-bottom.svg';
 
 // Project Components
 import TihldeLogo from 'components/miscellaneous/TihldeLogo';
+import WeeklyBusiness from 'containers/Landing/components/WeeklyBusiness';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: 'auto',
     maxWidth: '1000px',
-    padding: '150px 15px 100px',
+    padding: '65px 15px 100px',
     position: 'relative',
     zIndex: 20,
   },
@@ -55,8 +56,10 @@ const useStyles = makeStyles((theme) => ({
   },
   contentButtons: {
     margin: `${theme.spacing(2)}px auto 0`,
-    display: 'flex',
-    justifyContent: 'center',
+    width: 'fit-content',
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridGap: theme.spacing(1),
   },
   contentButtonPrimary: {
     color: theme.palette.text.primary,
@@ -64,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.background.paper + 'bb',
     },
-    margin: 'auto 10px',
   },
   contentButtonSecondary: {
     color: theme.palette.getContrastText(theme.palette.colors.gradient.main.top),
@@ -72,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.getContrastText(theme.palette.colors.gradient.main.top) + 'bb',
     },
     textDecoration: 'none',
-    margin: 'auto 10px',
   },
   waveWrapperInner: {
     position: 'absolute',
@@ -142,6 +143,7 @@ const Wave = () => {
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.content}>
+          <WeeklyBusiness />
           <TihldeLogo className={classes.logo} darkColor='white' lightColor='white' size='large' />
           <Typography align='center' className={classes.contentText} variant='h6'>
             Linjeforeningen for Dataingeniør, Digital infrastruktur og cybersikkerhet, Digital forretningsutvikling, Drift av datasystemer og Digital
