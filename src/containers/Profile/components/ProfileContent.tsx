@@ -47,15 +47,13 @@ const useStyles = makeStyles((theme) => ({
 const ProfileContent = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { event } = useGoogleAnalytics();
   const logOut = useLogout();
   const { data: user } = useUser();
   const { allowAccess: isAdmin } = useHavePermission([PermissionApp.EVENT, PermissionApp.JOBPOST, PermissionApp.NEWS, PermissionApp.USER]);
 
   const logout = () => {
-    window.gtag('event', 'log-out', {
-      event_category: 'profile',
-      event_label: `Logged out`,
-    });
+    event('log-out', 'profile', 'Logged out');
     logOut();
     navigate(URLS.landing);
   };
@@ -70,12 +68,7 @@ const ProfileContent = () => {
   const tabs: Array<NavListItem> = [eventTab, notificationsTab, badgesTab, groupsTab, settingsTab, ...(isAdmin ? [adminTab] : [])];
   const [tab, setTab] = useState(eventTab.label);
 
-  useEffect(() => {
-    window.gtag('event', 'change-tab', {
-      event_category: 'profile',
-      event_label: `Changed tab to: ${tab}`,
-    });
-  }, [tab]);
+  useEffect(() => event('change-tab', 'profile', `Changed tab to: ${tab}`), [tab]);
 
   type NavListItem = {
     label: string;

@@ -50,6 +50,7 @@ type FormData = {
 
 const ForgotPassword = () => {
   const classes = useStyles();
+  const { event } = useGoogleAnalytics();
   const forgotPassword = useForgotPassword();
   const showSnackbar = useSnackbar();
   const { register, errors, handleSubmit, setError } = useForm<FormData>();
@@ -58,10 +59,7 @@ const ForgotPassword = () => {
     forgotPassword.mutate(data.email, {
       onSuccess: (data) => {
         showSnackbar(data.detail, 'success');
-        window.gtag('event', 'forgot-password', {
-          event_category: 'auth',
-          event_label: `Forgot password`,
-        });
+        event('forgot-password', 'auth', 'Forgot password');
       },
       onError: (e) => {
         setError('email', { message: e.detail });

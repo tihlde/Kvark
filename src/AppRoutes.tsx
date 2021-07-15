@@ -67,12 +67,10 @@ const AuthRoute = ({ apps = [], children, path, element }: AuthRouteProps) => {
 
 const AppRoutes = () => {
   const location = useLocation();
-  useEffect(() => {
-    window.gtag('event', 'page_view', {
-      page_location: window.location.href,
-      page_path: window.location.pathname,
-    });
-  }, [location]);
+  const { event } = useGoogleAnalytics();
+
+  useEffect(() => event('page_view', window.location.href, window.location.pathname), [location]);
+
   return (
     <Suspense fallback={<Page options={{ title: 'Laster...', filledTopbar: true }} />}>
       <Routes>
