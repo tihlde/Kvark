@@ -22,16 +22,14 @@ const useStyles = makeStyles((theme) => ({
 
 const PagesSearch = () => {
   const classes = useStyles();
+  const { event } = useGoogleAnalytics();
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
   const filters = useMemo(() => {
     const filters: Record<string, unknown> = {};
     if (debouncedSearch) {
       filters.search = debouncedSearch;
-      window.gtag('event', 'search', {
-        event_category: 'pages',
-        event_label: `Search for: ${debouncedSearch}`,
-      });
+      event('search', 'pages', `Search for: ${debouncedSearch}`);
     }
     return filters;
   }, [debouncedSearch]);

@@ -17,6 +17,7 @@ import INSTAGRAM from 'assets/icons/instagram.svg';
 import SNAPCHAT from 'assets/icons/snapchat.svg';
 import SLACK from 'assets/icons/slack.svg';
 import DISCORD from 'assets/icons/discord.svg';
+import { useGoogleAnalytics } from 'api/hooks/Utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -130,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+  const { event } = useGoogleAnalytics();
   const [showModal, setShowModal] = useState(false);
 
   const mediaList = [
@@ -147,11 +149,7 @@ const Footer = () => {
     { key: 'organisasjonsnummer', value: '989 684 183' },
   ];
 
-  const someAnalytics = (some: string) =>
-    window.gtag('event', `open`, {
-      event_category: 'social-media',
-      event_label: `Click on: ${some}`,
-    });
+  const someAnalytics = (some: string) => event('open', 'social-media', `Click on: ${some}`);
 
   return (
     <div className={classes.root}>
